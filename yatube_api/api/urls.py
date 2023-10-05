@@ -1,10 +1,9 @@
-from rest_framework import routers
 from rest_framework.authtoken import views
-from django.contrib import admin
+from rest_framework import routers
+
 from django.urls import include, path
 
-from api.views import GroupViewSet, PostViewSet, CommentViewSet
-
+from .views import CommentViewSet, GroupViewSet, PostViewSet
 
 
 router = routers.DefaultRouter()

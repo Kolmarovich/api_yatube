@@ -17,13 +17,14 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ('id', 'text', 'pub_date', 'author', 'image', 'group')
 
 
-
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField(read_only=True)
+
     class Meta:
         model = Comment
         fields = ('id', 'text', 'created', 'author', 'post')
-        read_only_fields = ('author','post')
+        read_only_fields = ('author', 'post')
+
 
 
 
