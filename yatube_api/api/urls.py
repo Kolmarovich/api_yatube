@@ -12,7 +12,7 @@ router.register(
     CommentViewSet,
     basename='comment'
 )
-router.register('groups', GroupViewSet, basename='group' )
+router.register('groups', GroupViewSet, basename='group')
 router.register('posts', PostViewSet, basename='post')
 
 

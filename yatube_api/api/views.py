@@ -1,11 +1,11 @@
-from tokenize import Comment
 from rest_framework import viewsets
 from rest_framework.exceptions import PermissionDenied
 
-from posts.models import Group, Post
+from posts.models import Group, Post, Comment
 from .serializers import CommentSerializer, GroupSerializer, PostSerializer
 
 API_RAISE_403 = PermissionDenied('Изменение чужого контента запрещено!')
+
 
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
