@@ -1,8 +1,9 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.exceptions import PermissionDenied
 
-from posts.models import Group, Post, Comment
-from .serializers import CommentSerializer, GroupSerializer, PostSerializer
+from posts.models import Group, Post
+from api.serializers import CommentSerializer, GroupSerializer, PostSerializer
 
 API_RAISE_403 = PermissionDenied('Изменение чужого контента запрещено!')
 
@@ -34,15 +35,13 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        post_id = self.kwargs.get("post_id")
-        new_queryset = Comment.objects.filter(post=post_id)
+        post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
+        new_queryset = post.comments.all()
         return new_queryset
 
     def perform_create(self, serializer):
-        post_id = self.kwargs.get("post_id")
-        post = Post.objects.get(pk=post_id)
-        author = self.request.user
-        serializer.save(post=post, author=author)
+        post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
+        serializer.save(author=self.request.user, post=post)
 
     def perform_update(self, serializer):
         if serializer.instance.author != self.request.user:
