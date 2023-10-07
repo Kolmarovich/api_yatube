@@ -56,4 +56,5 @@ class Comment(models.Model):
         default_related_name = 'comments'
 
     def __str__(self):
-        return self.text[:TRUNCATE_LENGTH]
+        return (f'Комментарий от {self.author} к посту "{self.post}" :'
+                f' {self.text[:TRUNCATE_LENGTH]}')
